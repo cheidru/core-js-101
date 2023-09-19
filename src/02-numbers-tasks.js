@@ -71,8 +71,8 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-  return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
-
+  return Math.sqrt(((x2 - x1) ** 2) + ((y2 - y1) ** 2));
+}
 /**
  * Returns a root of linear equation a*x + b = 0 given by coefficients a and b.
  *
@@ -86,7 +86,7 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
-  return b * -1 / a;
+  return (b * -1) / a;
 }
 
 
