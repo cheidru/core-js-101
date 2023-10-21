@@ -65,7 +65,8 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-  return value.slice(7, -1);
+  const arr = value.slice(0, -1).split(' ');
+  return `${arr[1]} ${arr[2]}`;
 }
 
 
@@ -126,7 +127,7 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-  return str.slice(0, str.indexOf(value)) + str.slice(str.indexOf(value) + value.length);
+  return str.replace(value, '');
 }
 
 /**
@@ -202,9 +203,8 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-  return `┌${'─'.repeat(width - 2)}┐\n${(`│${' '.repeat(width - 2)}│\n`).repeat(height - 2)}└${'─'.repeat(width - 2)}┘\n`;
+  return `┌${'─'.repeat(width - 2)}┐\n${`│${' '.repeat(width - 2)}│\n`.repeat(height - 2)}└${'─'.repeat(width - 2)}┘\n`;
 }
-
 
 /**
  * Encode specified string with ROT13 cipher
@@ -223,30 +223,35 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-  const UPPER_CASE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const LOWER_CASE = 'abcdefghijklmnopqrstuvwxyz';
-  const ALPHABET_LEN = 26;
-  let result = '';
-  for (let i = 0; i < str.length; i += 1) {
-    if (str[i] === str[i].toUpperCase()) {
-      const letIndex = UPPER_CASE.indexOf(str[i]);
-      if (letIndex === -1) {
-        result += str[i];
-      } else {
-        const cipher = letIndex + 13 >= ALPHABET_LEN ? letIndex + 13 - ALPHABET_LEN : letIndex + 13;
-        result += UPPER_CASE[cipher];
-      }
+  const result = [];
+
+  function codeROT13(num) {
+    let upperCase = '';
+    let lowerCase = '';
+
+    if (num >= 65 && num <= 77) {
+      upperCase = num + 13;
+    } else if (num > 77 && num <= 90) {
+      upperCase = num + 13 - 90 + 64;
     } else {
-      const letIndex = LOWER_CASE.indexOf(str[i]);
-      if (letIndex === -1) {
-        result += str[i];
-      } else {
-        const cipher = letIndex + 13 >= ALPHABET_LEN ? letIndex + 13 - ALPHABET_LEN : letIndex + 13;
-        result += LOWER_CASE[cipher];
-      }
+      upperCase = '';
     }
+
+    if (num >= 97 && num <= 109) {
+      lowerCase = num + 13;
+    } else if (num > 109 && num <= 122) {
+      lowerCase = num + 13 - 122 + 96;
+    } else {
+      lowerCase = '';
+    }
+
+    return lowerCase === '' ? upperCase : lowerCase;
   }
-  return result;
+
+  for (let i = 0; i < str.length; i += 1) {
+    result[i] = codeROT13(str.charCodeAt(i)) !== '' ? String.fromCharCode(codeROT13(str.charCodeAt(i))) : str.charAt(i);
+  }
+  return result.join('');
 }
 
 /**
@@ -263,8 +268,11 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  return (typeof value === 'string' || value instanceof String);
+  if (typeof value === 'string') return true;
+  if (typeof value === 'object' && Object.prototype.toString.call(value) === '[object String]') return true;
+  return false;
 }
+
 
 /**
  * Returns playid card id.
@@ -291,9 +299,16 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-  const DECK = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣', 'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦', 'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥', 'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
-  return DECK.indexOf(value);
+  const deck = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣',
+    '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣', 'A♦', '2♦', '3♦',
+    '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦',
+    'K♦', 'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥',
+    '9♥', '10♥', 'J♥', 'Q♥', 'K♥', 'A♠', '2♠', '3♠', '4♠',
+    '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
+
+  return deck.indexOf(value);
 }
+
 
 
 module.exports = {
