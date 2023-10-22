@@ -1,9 +1,11 @@
 /* *******************************************************************************************
  *                                                                                           *
- * Please read the following tutorial before implementing tasks:                              *
+ * Please read the following tutorial before implementing tasks:                             *
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String   *
  *                                                                                           *
  ******************************************************************************************* */
+// Use 'git config --global core.autocrlf true' to avoid mistakes
+
 
 /**
  * Returns the result of concatenation of two strings.
@@ -308,7 +310,6 @@ function getCardId(value) {
 
   return deck.indexOf(value);
 }
-
 
 
 module.exports = {
