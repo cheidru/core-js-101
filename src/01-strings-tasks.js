@@ -5,7 +5,10 @@
  *                                                                                           *
  ******************************************************************************************* */
 // Use 'git config --global core.autocrlf true' to avoid mistakes
-
+// Install npm by 'npm install'
+// Install editorconfig plugin 'https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig'
+// Run 'npm run lint -- --fix'
+// To test run 'npm test'
 
 /**
  * Returns the result of concatenation of two strings.
@@ -22,7 +25,6 @@
 function concatenateStrings(value1, value2) {
   return value1 + value2;
 }
-
 
 /**
  * Returns the length of given string.
@@ -70,7 +72,6 @@ function extractNameFromTemplate(value) {
   const arr = value.slice(0, -1).split(' ');
   return `${arr[1]} ${arr[2]}`;
 }
-
 
 /**
  * Returns a first char of the given string.
@@ -146,7 +147,6 @@ function removeFirstOccurrences(str, value) {
 function unbracketTag(str) {
   return str.slice(1, -1);
 }
-
 
 /**
  * Converts all characters of the specified string into the upper case
@@ -275,7 +275,6 @@ function isString(value) {
   return false;
 }
 
-
 /**
  * Returns playid card id.
  *
@@ -310,7 +309,6 @@ function getCardId(value) {
 
   return deck.indexOf(value);
 }
-
 
 module.exports = {
   concatenateStrings,
