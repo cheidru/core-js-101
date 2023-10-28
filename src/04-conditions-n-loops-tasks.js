@@ -44,8 +44,9 @@ function getFizzBuzz(num) {
  *   5  => 120
  *   10 => 3628800
  */
-function getFactorial(/* n */) {
-  throw new Error('Not implemented');
+function getFactorial(n) {
+  const arr = Array(n).fill(0);
+  return arr.reduce((result, item, index) => result * (index + 1), 1);
 }
 
 /**
@@ -60,8 +61,10 @@ function getFactorial(/* n */) {
  *   5,10  =>  45 ( = 5+6+7+8+9+10 )
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
-function getSumBetweenNumbers(/* n1, n2 */) {
-  throw new Error('Not implemented');
+function getSumBetweenNumbers(n1, n2) {
+  const arr = Array(n2 - n1 + 1).fill(0);
+  const result = arr.map((item, index) => n1 + index);
+  return result.reduce((sum, item) => sum + item);
 }
 
 /**
@@ -79,8 +82,12 @@ function getSumBetweenNumbers(/* n1, n2 */) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isTriangle(a, b, c) {
+  if (a === b && b === c) return true;
+  if (Math.max(a, b, c) === a && a * a === (b * b + c * c)) return true;
+  if (Math.max(a, b, c) === b && b * b === (a * a + c * c)) return true;
+  if (Math.max(a, b, c) === c && c * c === (b * b + a * a)) return true;
+  return false;
 }
 
 /**
@@ -115,8 +122,11 @@ function isTriangle(/* a, b, c */) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  if ((rect1.top + rect1.height > rect2.top && rect1.top < rect2.top + rect2.height)
+    && (rect1.left + rect1.width > rect2.left
+    && rect1.left < rect2.left + rect2.width)) return true;
+  return false;
 }
 
 /**
@@ -145,8 +155,11 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  const lenX = Math.abs(circle.center.x - point.x);
+  const lenY = Math.abs(circle.center.y - point.y);
+  if (Math.sqrt(lenX * lenX + lenY * lenY) < circle.radius) return true;
+  return false;
 }
 
 /**
