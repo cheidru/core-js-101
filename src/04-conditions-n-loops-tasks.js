@@ -294,14 +294,18 @@ function isCreditCardNumber(ccn) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
-  // let numstr = num.toString();
-  // while (numstr.length > 1) {
-  //   const arr = numstr.split('');
-  //   numstr = arr.reduce((sum, item) => sum + item).toString();
-  // }
-  // return Number(numstr);
+function getDigitalRoot(num) {
+  let numstr = num.toString();
+  while (numstr.length > 1) {
+    const arr = numstr.split('');
+    let sum = 0;
+    arr.map((item) => {
+      sum += Number(item);
+      return item;
+    });
+    numstr = sum.toString();
+  }
+  return numstr;
 }
 
 /**
